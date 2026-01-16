@@ -1,0 +1,234 @@
+{
+  "name": "automation-1",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "#Automation-1\n\nTo understand the working of nodes\n\n\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        464,
+        -240
+      ],
+      "typeVersion": 1,
+      "id": "65013549-5d1a-4cb4-ba89-15dc634e1173",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "formTitle": "1on1TrainingForm",
+        "formDescription": "Fill in the below details to know about your goals",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name"
+            },
+            {
+              "fieldLabel": "Age",
+              "fieldType": "number"
+            },
+            {
+              "fieldLabel": "Weight ",
+              "fieldType": "number",
+              "fieldName": "Weight in kgs"
+            },
+            {
+              "fieldLabel": "Height",
+              "fieldType": "number",
+              "fieldName": "Height in cms"
+            },
+            {
+              "fieldLabel": "What's your goal ",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Gain weight "
+                  },
+                  {
+                    "option": "Lose weight "
+                  },
+                  {
+                    "option": "Gain Muscle and Lose Fat "
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Describe your goal precisely in your own words"
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false,
+          "buttonLabel": "Let the Grind Begin "
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        -64,
+        0
+      ],
+      "id": "85129ba5-cc38-49b2-ac75-74f5c56dbc12",
+      "name": "On form submission",
+      "webhookId": "06addd53-9c5e-48e6-a438-90981be68bea",
+      "notes": "First User Data Form "
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1_xLJQPuOA6rAAeeZvbfBwSrhuZofY7tVRUMkarAjXwE",
+          "mode": "list",
+          "cachedResultName": "userDetailsN8N",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_xLJQPuOA6rAAeeZvbfBwSrhuZofY7tVRUMkarAjXwE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_xLJQPuOA6rAAeeZvbfBwSrhuZofY7tVRUMkarAjXwE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name ": "={{ $json.Name }}",
+            "Age ": "={{ $json.Age }}",
+            "Weight": "={{ $json['Weight in kgs'] }}",
+            "Height": "={{ $json['Height in cms'] }}",
+            "Goal": "={{ $json['What\\'s your goal '] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name ",
+              "displayName": "Name ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Age ",
+              "displayName": "Age ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Weight",
+              "displayName": "Weight",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Height",
+              "displayName": "Height",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Goal",
+              "displayName": "Goal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        144,
+        0
+      ],
+      "id": "14a63492-fc42-41b9-b279-0d5b9abefd82",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "1jbsCUsoGVioTimM",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "tojisumanth@gmail.com",
+        "subject": "User Details ",
+        "emailType": "text",
+        "message": "=Hey Sumanth , \nYour new User stats and goals are listed as above \nName : {{ $json['Name '] }}\nAge : {{ $json['Age '] }}\nWeight : {{ $json.Weight }}\nHeight : {{ $json.Height }}\nGoal : {{ $json.Goal }}\n\nThank You ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        352,
+        0
+      ],
+      "id": "7a40b325-3d1e-421b-b76b-707846434117",
+      "name": "Send a message",
+      "webhookId": "001322b6-edea-412c-bdaa-ab5d3bb310c8",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "G9z4VEIyZNdlZiH3",
+          "name": "Gmail account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "09d123c5-b515-4ee8-ab41-14dd0dc163c2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c0f00693f66279c9ab004cf07c93a0efa2d6b2eedfca611e414bd48cdab85c7a"
+  },
+  "id": "dOodBBF7WN_56UJ_z2AYC",
+  "tags": []
+}
