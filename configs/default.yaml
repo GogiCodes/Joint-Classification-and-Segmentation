@@ -1,0 +1,31 @@
+# Sample configuration file for training
+# Usage: python train.py --config configs/default.yaml
+
+# Model settings
+model:
+  num_classes_cls: 10
+  num_classes_seg: 10
+  pretrained: true
+  backbone: resnet18
+
+# Training settings
+training:
+  epochs: 50
+  batch_size: 32
+  learning_rate: 0.0001
+  weight_decay: 0.00001
+  alpha: 1.0  # Classification loss weight
+  beta: 1.0   # Segmentation loss weight
+
+# Data settings
+data:
+  data_dir: ./data
+  num_workers: 4
+  image_size: 224
+
+# Logging settings
+logging:
+  log_dir: ./logs
+  checkpoint_dir: ./models
+  save_freq: 10
+  tensorboard: true

@@ -1,0 +1,9 @@
+# Pre-trained models and checkpoints saved here
+
+Structure:
+- best_model.pth (best validation model)
+- checkpoint_epoch_10.pth (periodic saves)
+- checkpoint_epoch_20.pth
+- etc.
+
+Use in inference: python inference.py --model ./models/best_model.pth --image path/to/image.jpg
